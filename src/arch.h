@@ -7,13 +7,6 @@
 
 
 
-// -- TEXT --
-// addresses of the text buffer
-static char *TEXT_BUFFER = (char *)0xc9000000;
-static char *CHARBUF = (char *)0xc9000000;
-
-static const uint32_t TEXT_WIDTH = 80;
-static const uint32_t TEXT_HEIGHT = 60;
 
 // -- KEYBOARD --
 // address of the key register

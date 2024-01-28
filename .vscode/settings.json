@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "arch.h": "c"
+        "arch.h": "c",
+        "stdint.h": "c"
     }
 }

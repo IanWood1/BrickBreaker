@@ -3,12 +3,10 @@
 
 #include "arch.h"
 #include "vga.h"
+#include "text.h"
 
 // These are some useful defines that will help you access structure fields
-// static PIXMAP_WIDTH = 0;
-// static PIXMAP_HEIGHT = 2;
-// static PIXMAP_TRANSPARENCY = 4;
-// static PIXMAP_PIXELDATA = 6;
+
 
 // static SPRITE_XPOS = 0; // 2 byte int
 // static SPRITE_YPOS = 2; // 2 byte int
@@ -20,11 +18,12 @@
 // static SPRITE_TYPE = 16; // 1 byte
 
 // entry point into program
-void _start(){
-    pixel_buffer = PIX_BUFFER_1;
-    while(true){
-        clear_vga(0x0000);
-    }
-}
+// void _start(){
+//     pixel_buffer = PIX_BUFFER_1;
+//     while(true){
+//         clear_vga(0x0000);
+//         clear_vga(0xFFFF);
+//     }
+// }
 
 
