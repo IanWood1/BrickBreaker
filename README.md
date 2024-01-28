@@ -2,7 +2,7 @@
 I built a Brick Breaker game for my computer engineering class. The program was written in 32-bit Arm assembly specifically for an intel De1-Soc board. I thought it would be fun to rewrite parts of the game in C, and then compare the performance and look at the difference in generated binary.
 
 
-Note: the original binary is not included
+Note: the original assembly is not included
 
 
 
