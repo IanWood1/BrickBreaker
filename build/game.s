@@ -221,6 +221,155 @@ draw_string:
 	.cantunwind
 	.fnend
                                         @ -- End function
+	.globl	apply_movement                  @ -- Begin function apply_movement
+	.p2align	2
+	.type	apply_movement,%function
+	.code	32                              @ @apply_movement
+apply_movement:
+	.fnstart
+@ %bb.0:
+	ldrh	r1, [r0, #4]
+	ldrh	r2, [r0]
+	add	r1, r2, r1
+	ldrh	r2, [r0, #2]
+	strh	r1, [r0]
+	ldrh	r1, [r0, #6]
+	add	r1, r2, r1
+	strh	r1, [r0, #2]
+	bx	lr
+.Lfunc_end5:
+	.size	apply_movement, .Lfunc_end5-apply_movement
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	detect_collision                @ -- Begin function detect_collision
+	.p2align	2
+	.type	detect_collision,%function
+	.code	32                              @ @detect_collision
+detect_collision:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.setfp	r11, sp, #28
+	add	r11, sp, #28
+	.pad	#4
+	sub	sp, sp, #4
+	movw	r8, :lower16:SpriteList
+	movt	r8, :upper16:SpriteList
+	ldr	r7, [r8]
+	cmp	r7, #0
+	beq	.LBB6_15
+@ %bb.1:
+	movw	r10, :lower16:CollisionCounter
+	movw	r0, :lower16:num_blocks
+	movt	r0, :upper16:num_blocks
+	movt	r10, :upper16:CollisionCounter
+	ldr	r12, [r10]
+	ldr	r0, [r0]
+	str	r0, [sp]                        @ 4-byte Spill
+	b	.LBB6_3
+.LBB6_2:                                @   in Loop: Header=BB6_3 Depth=1
+	ldr	r7, [r8, #4]!
+	cmp	r7, #0
+	beq	.LBB6_15
+.LBB6_3:                                @ =>This Loop Header: Depth=1
+                                        @     Child Loop BB6_6 Depth 2
+	mov	lr, #4
+	b	.LBB6_6
+.LBB6_4:                                @   in Loop: Header=BB6_6 Depth=2
+	cmp	r3, #2
+	moveq	r7, r4
+	ldrh	r0, [r7, #6]
+	rsb	r0, r0, #0
+	strh	r0, [r7, #6]
+.LBB6_5:                                @   in Loop: Header=BB6_6 Depth=2
+	ldr	r7, [r8, lr]
+	add	lr, lr, #4
+	cmp	r7, #0
+	beq	.LBB6_2
+.LBB6_6:                                @   Parent Loop BB6_3 Depth=1
+                                        @ =>  This Inner Loop Header: Depth=2
+	ldr	r4, [r8]
+	cmp	r4, r7
+	beq	.LBB6_5
+@ %bb.7:                                @   in Loop: Header=BB6_6 Depth=2
+	ldrh	r6, [r7, #8]
+	ldrh	r3, [r7]
+	ldrh	r2, [r4, #8]
+	add	r1, r3, r6, lsr #1
+	uxth	r0, r1
+	ldrh	r1, [r4]
+	sub	r5, r1, r2, lsr #1
+	uxth	r5, r5
+	cmp	r5, r0
+	bhi	.LBB6_5
+@ %bb.8:                                @   in Loop: Header=BB6_6 Depth=2
+	lsr	r0, r2, #1
+	lsr	r2, r6, #1
+	sub	r2, r3, r2
+	add	r0, r0, r1
+	uxth	r2, r2
+	uxth	r0, r0
+	cmp	r0, r2
+	blo	.LBB6_5
+@ %bb.9:                                @   in Loop: Header=BB6_6 Depth=2
+	ldrh	r3, [r7, #10]
+	ldrh	r6, [r4, #10]
+	ldrh	r1, [r7, #2]
+	ldrh	r9, [r4, #2]
+	add	r0, r1, r3, lsr #1
+	sub	r2, r9, r6, lsr #1
+	uxth	r0, r0
+	uxth	r2, r2
+	cmp	r2, r0
+	bhi	.LBB6_5
+@ %bb.10:                               @   in Loop: Header=BB6_6 Depth=2
+	sub	r0, r1, r3, lsr #1
+	add	r1, r9, r6, lsr #1
+	uxth	r0, r0
+	uxth	r1, r1
+	cmp	r1, r0
+	blo	.LBB6_5
+@ %bb.11:                               @   in Loop: Header=BB6_6 Depth=2
+	ldrb	r3, [r4, #16]
+	add	r12, r12, #1
+	str	r12, [r10]
+	cmp	r3, #1
+	beq	.LBB6_4
+@ %bb.12:                               @   in Loop: Header=BB6_6 Depth=2
+	ldrb	r1, [r7, #16]
+	cmp	r1, #1
+	beq	.LBB6_4
+@ %bb.13:                               @   in Loop: Header=BB6_6 Depth=2
+	cmp	r3, #3
+	cmpne	r1, #3
+	bne	.LBB6_5
+@ %bb.14:                               @   in Loop: Header=BB6_6 Depth=2
+	cmp	r3, #3
+	mov	r0, r7
+	movw	r2, :lower16:EmptyPixMap
+	moveq	r0, r4
+	mov	r1, #0
+	movt	r2, :upper16:EmptyPixMap
+	str	r1, [r0, #8]
+	strb	r1, [r0, #16]
+	ldr	r1, [sp]                        @ 4-byte Reload
+	str	r2, [r0, #12]
+	movw	r0, :lower16:num_blocks
+	sub	r1, r1, #1
+	movt	r0, :upper16:num_blocks
+	str	r1, [sp]                        @ 4-byte Spill
+	str	r1, [r0]
+	b	.LBB6_4
+.LBB6_15:
+	sub	sp, r11, #28
+	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+.Lfunc_end6:
+	.size	detect_collision, .Lfunc_end6-detect_collision
+	.cantunwind
+	.fnend
+                                        @ -- End function
 	.type	pixel_buffer,%object            @ @pixel_buffer
 	.bss
 	.globl	pixel_buffer
